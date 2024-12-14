@@ -3,9 +3,35 @@ import Image from "next/image";
 import { useState } from "react";
 import logo from "../../assets/Grupo 2989.svg";
 import backg from "../../assets/Curve-patterns.svg";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const url = "https://628bf017667aea3a3e387e51.mockapi.io/login";
+
+  const login = async () => {
+    try {
+      const response = await axios.get(
+        `${url}?email=${encodeURIComponent(
+          email
+        )}&password=${encodeURIComponent(password)}`
+      );
+      const token = response.data;
+      console.log(token);
+      localStorage.setItem("token", token);
+      router.push('/home-page')
+
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setError("Usuário ou senha inválidos");
+    }
+  };
 
   return (
     <div
@@ -23,24 +49,25 @@ export default function Login() {
           />
         </div>
 
-        {/* Formulário */}
-        <form className="space-y-6">
-          {/* E-mail */}
+        <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); login(); }}>
           <div>
             <p className="text-sm font-medium text-gray-700 mb-2">E-mail</p>
             <input
               type="email"
               placeholder="E-mail"
+              value={email || ""}
+              onChange={(e) => setEmail(e.target.value)}
               className="block w-full h-[60px] px-4 text-gray-800 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
-          {/* Senha */}
           <div className="relative">
             <p className="text-sm font-medium text-gray-700 mb-2">Senha</p>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Senha"
+              value={password || ""}
+              onChange={(e) => setPassword(e.target.value)}
               className="block w-full h-[60px] px-4 text-gray-800 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <button
@@ -52,6 +79,7 @@ export default function Login() {
             </button>
           </div>
 
+          {error && <p>{error}</p>}  
           <div className="flex justify-center">
             <button
               type="submit"
@@ -59,8 +87,8 @@ export default function Login() {
             >
               Entrar
             </button>
-            </div>
-            </form>
+          </div>
+        </form>
       </div>
     </div>
   );
