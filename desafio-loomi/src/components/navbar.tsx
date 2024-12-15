@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/Grupo 2989.svg";
 import Image from "next/image";
 import axios from "axios";
+import NotificationBell from "./NotificationBell";
+import UserOptions from "./UserOptions";
 
 const Navbar: React.FC = () => {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState<string[]>([]);
+  const [showUserOptions, setShowUserOptions] = useState(false);
+  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,25 +25,7 @@ const Navbar: React.FC = () => {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      const linkAlertsEndpoint =
-        "https://628bf017667aea3a3e387e51.mockapi.io/alerts";
-      try {
-        const response = await axios.get(linkAlertsEndpoint);
-        setNotifications(response.data.map((alert: any) => alert.type));
-      } catch (error) {
-        console.error("Erro ao buscar alertas:", error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
-
-  const handleNotifications = () => {
-    setShowNotifications(!showNotifications);
-  };
-
+    
   const firstChar = loggedUser ? loggedUser.charAt(0).toUpperCase() : "";
 
   return (
@@ -55,8 +39,12 @@ const Navbar: React.FC = () => {
           className="object-contain"
         />
       </div>
+
       {loggedUser && (
-        <div className="flex items-center space-x-4 relative">
+        <div className="flex items-center space-x-4 relative" 
+        onClick={() => setShowUserOptions(showUserOptions)}
+        >
+          
           <span
             className="text-xl font-medium"
             style={{
@@ -64,12 +52,12 @@ const Navbar: React.FC = () => {
               color: "#4E5D66",
             }}
           >
+            <UserOptions/>
             {loggedUser}
           </span>
-          <div
-            className="flex items-center justify-center w-10 h-10 bg-[#5A4CA7] rounded-full opacity-55 cursor-pointer"
-            onClick={handleNotifications}
-          >
+          <NotificationBell />
+          
+          <div className="flex items-center justify-center w-10 h-10 bg-[#5A4CA7] rounded-full opacity-55 cursor-pointer">
             <span
               className="text-center text-2xl font-medium"
               style={{
@@ -81,20 +69,7 @@ const Navbar: React.FC = () => {
               {firstChar}
             </span>
           </div>
-          {showNotifications && (
-            <div className="absolute top-24 right-0 mt-2 w-80 bg-[#4E5D66] border border-[#3F3E4B] opacity-100 shadow-lg rounded-lg">
-              <h2 className="text-lg font-bold p-4 border-b text-white">
-                Notificações
-              </h2>
-              <ul className="list-none p-4 space-y-2">
-                {notifications.map((notification, index) => (
-                  <li key={index} className="text-sm text-gray-200">
-                    {notification}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {showUserOptions && <UserOptions />}
         </div>
       )}
     </nav>
