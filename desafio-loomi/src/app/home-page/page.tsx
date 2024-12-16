@@ -1,51 +1,86 @@
+"use client";
 import Dashboard from "@/components/dashboard";
 import Navbar from "@/components/navbar";
 import backg from "@/assets/Curve-patterns.svg";
+import DashCards from "@/components/DashCards";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import SideBar from "@/components/SideBar";
 
-export default function StartPage() {
+export default function HomePage() {
+  const [ticketData, setTicketData] = useState({ value: 0, growth: 0 });
+
+  const dadosTicketDay = async () => {
+    const url = "https://628bf017667aea3a3e387e51.mockapi.io/avg-ticket-day";
+    try {
+      const response = await axios.get(url);
+      console.log(response.data);
+      const dailyData = response.data;
+
+      if (!dailyData || dailyData == null) {
+        console.log("dados diários vazio.")
+        return;
+
+      }
+      setTicketData(dailyData);
+    } catch (error) {
+      console.log(`Erro ao tentar acessar dados diários: ${error}`)
+    }
+  }
+  useEffect(() => {
+    dadosTicketDay();
+  }, []);
+
+  const formattedValue = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(ticketData.value);
+
   return (
-    // <nav className="fixed top-0 left-0 w-full h-20 bg-white shadow-md z-50 flex items-center justify-between px-4">
-    //   {" "}
-    //   <div className="flex items-center">
-    //     {" "}
-    //     <Image
-    //       src={logo}
-    //       alt="Logo"
-    //       width={60}
-    //       height={60}
-    //       className="object-contain"
-    //     />{" "}
-    //   </div>{" "}
-    //   <div className="flex items-center space-x-4">
-    //     {" "}
-    //     <span className="text-xl font-bold">{loggedUser}</span>{" "}
-    //     <div className="flex items-center justify-center w-10 h-10 bg-[#5A4CA7] rounded-full opacity-55">
-    //       {" "}
-    //       <span
-    //         className="text-center text-2xl font-medium text-[#4E5D66] uppercase"
-    //         style={{
-    //           font: "normal normal medium 22px/26px Ubuntu",
-    //           letterSpacing: "-0.44px",
-    //         }}
-    //       >
-    //         {" "}
-    //         {firstChar}{" "}
-    //       </span>{" "}
-    //     </div>{" "}
-    //   </div>{" "}
-    // </nav>
-
     <div
-      className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative"
+      className="min-h-screen flex flex-col items-center justify-center bg-gray-50 pt-20 py-12 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundImage: `url(${backg.src})`, backgroundSize: "cover" }}
     >
       <Navbar />
+      <SideBar />
       <div className="container mx-auto p-4">
-        {" "}
-        <h1 className="text-2xl font-bold mb-4">
-          Dashboard
+        <h1 className="text-2xl font-ubuntu font-bold mb-4 text-black">
+          Início
         </h1>
-        <Dashboard />{" "}
+        
+        <div className="flex flex-wrap justify-between space-y-8 sm:space-y-0 sm:space-x-2">
+          <DashCards
+            titulo="Ticket Médio Últimas 24h"
+            subtitulo={`${ticketData.growth > 0 ? '+' : ''} ${ticketData.growth}% em relação ao dia anterior`}
+      valor={formattedValue}
+          />
+          <DashCards
+            titulo="Ticket Médio mensal"
+            subtitulo="+ 15% em relação a julho"
+            valor="129.292,00"
+          />
+          <DashCards
+            titulo="Ticket Médio Últimas 24h"
+            subtitulo="+ 15% em relação ao dia anterior"
+            valor="9.292,00"
+          />
+          <DashCards
+            titulo="Ticket Médio mensal"
+            subtitulo="+ 15% em relação a julho"
+            valor="129.292,00"
+          />
+          <DashCards
+            titulo="Ticket Médio Últimas 24h"
+            subtitulo="+ 15% em relação ao dia anterior"
+            valor="9.292,00"
+          />
+          <DashCards
+            titulo="Ticket Médio mensal"
+            subtitulo="+ 15% em relação a julho"
+            valor="129.292,00"
+          />
+        </div>
+        <Dashboard />
       </div>
     </div>
   );

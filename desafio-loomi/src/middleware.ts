@@ -10,8 +10,10 @@ export function middleware(request: NextRequest) {
 
   if (protectedRoutes.includes(pathname)) {
     if (!token || token == undefined) {
-      console.log('Token não encontrado.')
-      return NextResponse.redirect(new URL('/login', request.url));
+      
+      return NextResponse.redirect(
+        new URL('/login?error=auth_required', request.url)
+    );
     }
   }
 

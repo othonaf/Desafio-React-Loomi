@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/Grupo 2989.svg";
 import backg from "../../assets/Curve-patterns.svg";
 import axios from "axios";
@@ -13,6 +13,13 @@ export default function Login() {
   const [error, setError] = useState("");
   const router = useRouter();
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === 'auth_required') {
+        alert("Usuário não autenticado, necessário fazer login.");
+    }
+}, []);
+  
   const url = "https://628bf017667aea3a3e387e51.mockapi.io/login";
 
   const login = async () => {
