@@ -10,6 +10,8 @@ import SideBar from "@/components/SideBar";
 export default function HomePage() {
   const [ticketDataDaily, setticketDataDaily] = useState({ value: 0, growth: 0 });
   const [ticketDataMonthly, setticketDataMonthly] = useState({ value: 0, growth: 0 });
+  const [productAlerts, setproductAlerts] = useState({value: 0, growth: 0 });
+  const [storageDown, setStorageDown] = useState({value: 0, growth: 0 });
 
   //Código para receber dados Diários:
   const dadosTicketDay = async () => {
@@ -53,6 +55,28 @@ export default function HomePage() {
   }
   useEffect(() => {
     dadosTicketMonth();
+  }, []);
+
+  //Código para receber dados de Produtos em manutenção:
+  const dadosAlertProducts = async () => {
+    const url = "https://628bf017667aea3a3e387e51.mockapi.io/alerts";
+    try {
+      const response = await axios.get(url);
+      console.log(response.data);
+      const productsAlert = response.data;
+
+      if (!productsAlert || productsAlert == null) {
+        console.log("dados diários vazio.")
+        return;
+
+      }
+      setproductAlerts(productsAlert);
+    } catch (error) {
+      console.log(`Erro ao tentar acessar dados diários: ${error}`)
+    }
+  }
+  useEffect(() => {
+    dadosAlertProducts();
   }, []);
 
   //Bloco de código para formatar o valor em R$:
