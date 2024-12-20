@@ -10,13 +10,22 @@ const DashMonthlyOrders: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear()
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData(year: number) {
-      const response = await axios.get(
-        `https://628bf017667aea3a3e387e51.mockapi.io/sells-per-month?year=${year}`
-      );
-      setData(response.data);
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `https://628bf017667aea3a3e387e51.mockapi.io/sells-per-month?year=${year}`
+        );
+        setData(response.data);
+      } catch (error) {
+        console.log("Erro ao gerar gráfico", error)
+      } finally {
+        setIsLoading(false);
+      }
+      
     }
 
     fetchData(selectedYear);
@@ -106,7 +115,8 @@ const DashMonthlyOrders: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="top-[459px] left-[144px] w-[608px] h-[400px] bg-white rounded-[12px] opacity-100">
+    <div className="w-[460px] h-[400px] bg-white rounded-[12px] opacity-100">
+
       <div className="flex justify-end">
         <label htmlFor="year" className="mr-2 text-[#191a19]">
           Ano:
@@ -127,14 +137,18 @@ const DashMonthlyOrders: React.FC = () => {
           ))}
         </select>
       </div>
-      {chartOptions.series ? (
-        <Chart
+      {isLoading ? (
+        <p className="text-lg font-bold text-[#4E5D66] mb-4">Carregando...</p>
+      ) : (
+        data.length > 0 && (
+          <Chart
           options={chartOptions}
           series={chartOptions.series}
           type="bar"
           height={400}
         />
-      ) : null}
+        )
+      )}
     </div>
   );
 };
