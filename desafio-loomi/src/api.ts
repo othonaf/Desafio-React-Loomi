@@ -6,7 +6,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/avg-ticket-day";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const dailyData = response.data;
 
       if (!dailyData) {
@@ -25,7 +24,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/avg-ticket-month";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const monthlyData = response.data;
 
       if (!monthlyData) {
@@ -44,7 +42,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/alerts";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const productsAlert = response.data;
 
       if (!productsAlert) {
@@ -73,7 +70,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/alerts";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const productsAlert = response.data;
 
       if (!productsAlert) {
@@ -102,7 +98,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/orders-month";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const dataMonthly = response.data;
 
       if (!dataMonthly) {
@@ -121,7 +116,6 @@ export class ApiCalls {
     const url = "https://628bf017667aea3a3e387e51.mockapi.io/sells-month";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       const dataMonthly = response.data;
 
       if (!dataMonthly) {
@@ -134,6 +128,26 @@ export class ApiCalls {
       return error;
     }
   }
+
+  // Código para receber Dados de conversões:
+  async conversionsPerDay() {
+    const url = "https://628bf017667aea3a3e387e51.mockapi.io/conversions-resume";
+    try {
+      const response = await axios.get(url);
+      const data = response.data;
+
+      if (!data) {
+        console.log("dados diários vazio.");
+        return;
+      }
+      const conversions = data["total-per-day"]
+      return data;
+    } catch (error) {
+      console.log(`Erro ao tentar acessar dados diários: ${error}`);
+      return error;
+    }
+  }
+
   // Função para formatar a data
   formatDate(dateString: string): string {
     const date = new Date(dateString);

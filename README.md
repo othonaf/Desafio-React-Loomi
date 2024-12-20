@@ -6,6 +6,7 @@ Uma aplicação de interface Web criada em Next.js com tela de login, Dashboards
 
 ## :warning: Observação importante para o avaliador:
 
+* Os dados da Api que deveriam alimentar o gráfico "Transações por aparelho" não existem no response do link informado. Por isso não criei este gráfico.
 * O projeto ainda não está finalizado, faltam duas telas e alguns ajustes, assim como o restante das intruções deste arquivo Readm.md.
 * Avisarei quando tiver concluído.
 

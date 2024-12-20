@@ -10,6 +10,8 @@ import Link from "next/link";
 const Navbar: React.FC = () => {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
   const [showUserOptions, setShowUserOptions] = useState(false);
+  const firstChar = "E"
+  // [, setFirstChar] = useState<string | null>('');
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,8 +30,11 @@ const Navbar: React.FC = () => {
 
     fetchUser();
   }, []);
-
-  const firstChar = loggedUser ? loggedUser.charAt(0)?.toUpperCase() : "O";
+  
+  // useEffect(() => {
+  //   loggedUser ? setFirstChar(loggedUser.charAt(0)?.toUpperCase())  : "U";
+  // }, [loggedUser])
+   
 
   return (
     <nav className="fixed top-0 left-0 w-full h-20 bg-white shadow-md z-50 flex items-center justify-between px-4">

@@ -31,3 +31,7 @@ body {
   border-right: 10px solid transparent;
   border-bottom: 10px solid #4E5D66;
 }
+
+.apexcharts-tooltip {
+  color: #000000 !important;
+}
