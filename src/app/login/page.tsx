@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -23,12 +24,9 @@ export default function Login() {
   const url = "https://628bf017667aea3a3e387e51.mockapi.io/login";
 
   const login = async () => {
+    setIsLoading(true)
     try {
-      const response = await axios.get(
-        `${url}?email=${encodeURIComponent(
-          email
-        )}&password=${encodeURIComponent(password)}`
-      );
+      const response = await axios.get(url);
       const token = response.data["access-token"];
       console.log(`Este é o response:`, response);
       console.log(`Este é o token: ${token}`);
@@ -43,8 +41,18 @@ export default function Login() {
     } catch (error) {
       console.error("Erro no login:", error);
       setError("Usuário ou senha inválidos");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center bg-gray-50">
+        <p>Loading...</p>
+      </div>
+    )
+  }
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative"

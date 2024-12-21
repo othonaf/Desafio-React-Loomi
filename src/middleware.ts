@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     
-  const protectedRoutes = ['/home-page'];
+  const protectedRoutes = ['/home-page', '/cadastra-produto', 'regioes-entrega'];
   const pathname = request.nextUrl.pathname;
 
   const token = request.cookies.get('token')?.value;
