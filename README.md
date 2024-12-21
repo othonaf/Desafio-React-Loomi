@@ -7,10 +7,14 @@ Uma aplicação de interface Web criada em Next.js com tela de login, Dashboards
 ## :warning: Observação importante para o avaliador:
 
 * Os dados da Api que deveriam alimentar o gráfico "Transações por aparelho" não existem no response do link informado. Por isso não criei este gráfico.
-* O projeto ainda não está finalizado, faltam duas telas e alguns ajustes, assim como o restante das intruções deste arquivo Readm.md.
-* Avisarei quando tiver concluído.
+  
+## Detalhes técnicos:
 
-## Por enquanto:
+* Aplicação web SSR construída em Next.js.
+* Gráficos dinâmicos criados com a biblioteca Apexcharts.js.
+* Mapas interativos criados com geoJson. 
+* Criei o arquivo 'middleware.ts' na raiz do projeto (src) para proteger páginas que devem ser acessadas apenas por usuários autenticados.
+* O arquivo 'api.ts' também na pasta src contém uma classe com métodos de chamada aos endpoints que são importados e instanciados para serem usados em outros arquivos.
 
 ### Para instalar e iniciar localmente:
 
@@ -28,3 +32,4 @@ npm install
 npm run dev
 ```
 
+* A aplicação estará disponível em http://localhost:3000
