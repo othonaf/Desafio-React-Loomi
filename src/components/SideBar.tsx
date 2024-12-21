@@ -11,6 +11,7 @@ import card from "@/assets/card.svg";
 import text from "@/assets/text.svg";
 import gear from "@/assets/gear.svg";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SideBar() {
   const [menuIcon, setMenuIccon] = useState(menu);
@@ -33,24 +34,31 @@ export default function SideBar() {
           Início
         </span>
       </div>
-      <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
-        <Image src={cat} alt="Catálogo" width={40} height={40} />
-        <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">
-          Catálogo
-        </span>
-      </div>
+
+      <Link href="/cadastra-produto">
+        <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
+          <Image src={cat} alt="Catálogo" width={40} height={40} />
+          <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">
+            Catálogo
+          </span>
+        </div>
+      </Link>
+
       <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
         <Image src={services} alt="Serviços" width={40} height={40} />
         <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">
           Serviços
         </span>
       </div>
-      <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
-        <Image src={log} alt="Logs" width={40} height={40} />
-        <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">
-          Logística
-        </span>
-      </div>
+
+      <Link href="/regioes-entrega">
+        <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
+          <Image src={log} alt="Logs" width={40} height={40} />
+          <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">
+            Logística
+          </span>
+        </div>
+      </Link>
       <div className="flex items-center w-full text-left px-5 py-2.5 transition-colors duration-300 hover:bg-[#EDA268] hover:border hover:border-[#EDA268] hover:rounded-md hover:cursor-pointer">
         <Image src={buy} alt="Compras" width={40} height={40} />
         <span className="hidden group-hover:inline-block ml-2 text-left font-ubuntu text-[22px] leading-[30px] tracking-[0.44px] text-[#4E5D66]">

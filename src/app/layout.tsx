@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Ubuntu } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -6,6 +7,12 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
+const ubuntu = Ubuntu({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  variable: '--font-ubuntu',
+}); 
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
