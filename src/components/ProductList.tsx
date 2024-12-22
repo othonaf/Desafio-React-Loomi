@@ -17,9 +17,8 @@ export default function ProductList() {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Header com título e busca */}
       <div className="flex justify-between items-center mb-4">
-      <h1 className="top-[1720px] left-[184px] w-[309px] h-[34px] text-left text-[30px] leading-[30px] font-ubuntu tracking-[0.6px] text-[#333333] opacity-100">Listagem de Produtos</h1>
+      <h1 className="top-[1720px] left-[184px] w-[309px] h-[34px] text-left text-[30px] leading-[30px] font-ubuntu tracking-[0.6px] text-[#333333] opacity-100 whitespace-nowrap">Listagem de Produtos</h1>
         <div className="relative">
           <input
             type="text"
@@ -34,7 +33,6 @@ export default function ProductList() {
         </div>
       </div>
 
-      {/* Cabeçalho da tabela */}
       <div className="flex mb-2">
         <div className="w-[546px] h-[50px] bg-[#4E5D66] rounded-[9px] mr-10 flex items-center px-4">
           <span className="text-white">PRODUTO</span>
@@ -48,7 +46,6 @@ export default function ProductList() {
         </div>
       </div>
 
-      {/* Lista de produtos */}
       <div className="space-y-4">
         {products.map((product) => (
           <div key={product.id} className="flex items-center">

@@ -87,7 +87,7 @@ const DeliveryMap = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50 relative overflow-x-auto mx-auto">
+    <div className="min-h-screen pl-36 pt-6 flex bg-gray-50 relative overflow-x-auto mx-auto">
       <SideBar /> 
       <div className="flex-1 flex flex-col W-[1736px] pl-20 overflow-y-hidden mx-auto">
         <Navbar /> 

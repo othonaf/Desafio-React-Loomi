@@ -21,7 +21,7 @@ Uma aplicação de interface Web criada em Next.js com tela de login, Dashboards
 ```bash
 git clone https://github.com/othonaf/Desafio-React-Loomi.git
 
-cd Desafio-React-Loomi/desafio-loomi
+cd Desafio-React-Loomi
 
 npm install
 ```
